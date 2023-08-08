@@ -12,18 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10.8
-      uses: actions/setup-python@v3
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
       with:
-        python-version: 3.10.8
-        architecture: x64
-        node-version: 16.16.0
+        python-version: 3.9
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        sudo apt install python3.11-distutils
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
 
     - name: environment
       env:
@@ -34,10 +32,25 @@ jobs:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         bash setup_env.sh
-  
-    - name: news_writ
+    - name: hero_writer
       run: |
-        python news_writer.py
+        python hero_writer.py
 
 
-
+    - name: environment
+      env:
+        TI_CLIENT_ID: ${{ secrets.TI_CLIENT_ID }}
+        TI_SECRET: ${{ secrets.TI_SECRET }}
+        TI_CODE: ${{ secrets.TI_CODE }}
+        TI_ACCESS_TOKEN: ${{ secrets.TI_ACCESS_TOKEN }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        bash setup_env.sh
+    - name: trend_writer
+      run: |
+        python trend_writer.py
+    - name: cafe_writer
+      run: |
+        python cafe_writer.py
+    
+        
