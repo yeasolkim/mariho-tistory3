@@ -35,7 +35,7 @@ jobs:
       run: |
         bash setup_env.sh
   
-    - name: news_writer
+    - name: news_writ
       run: |
         python news_writer.py
 
